@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Image to ASCII - ASCII Converter{% endblock %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- For dynamic resizing -->
+
+    <!-- Content -->
+
+
+            <h1 class="page-title">Upload an Image to Convert to ASCII</h1>
+
+            <form method="post" enctype="multipart/form-data" class="upload-form">
+                {% csrf_token %}.
+                {{ form.as_p }}
+                <button type="submit" class="submit-btn">Convert</button>
+            </form>
+
+            {% if ascii_output %}
+                <div class="output-container">
+                    <h2 class="output-title">ASCII Output:</h2>
+                    <pre class="ascii-output" id="ascii-output">{{ ascii_output }}</pre>
+                    <button class="copy-btn" id="copy-btn">Copy Output</button>
+                </div>
+            {% endif %}
+
+
+
+
+<script>
+    // Copy button functionality
+    document.getElementById("copy-btn").addEventListener("click", function() {
+        var asciiOutput = document.getElementById("ascii-output");
+        var range = document.createRange();
+        range.selectNode(asciiOutput);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("ASCII Output copied to clipboard!");
+    });
+
+    // Dynamic resizing of ASCII output based on content width
+    $(window).resize(function() {
+        var windowWidth = $(window).width();
+        var output = $('#ascii-output');
+        if (windowWidth < 600) {
+            output.css("white-space", "pre-wrap"); // Allow wrapping for small screens
+            output.css("font-size", "14px"); // Reduce font size on smaller screens
+        } else {
+            output.css("white-space", "pre"); // No wrapping for large screens
+            output.css("font-size", "16px"); // Restore font size on larger screens
+        }
+    });
+
+    $(document).ready(function() {
+        $(window).resize(); // Call resize on page load to adjust the ASCII output size initially
+    });
+</script>
+{% endblock %}

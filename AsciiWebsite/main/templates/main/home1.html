@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - ASCII Converter</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trail.css' %}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <h2 class="sidebar-title">ASCII Converter</h2>
+            <ul class="sidebar-nav">
+                <li><a href="/" class="sidebar-link active">Home</a></li>
+                <li><a href="/image-to-ascii/" class="sidebar-link">Image to ASCII</a></li>
+                <li><a href="/text-to-ascii/" class="sidebar-link">Text to ASCII</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <h1>Welcome to the ASCII Converter!</h1>
+                <p>Select an option from the sidebar.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

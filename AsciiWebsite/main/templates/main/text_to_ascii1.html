@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to ASCII</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trail.css' %}">
+</head>
+<body>
+    <div class="main-container">
+        <div class="sidebar">
+            <h2 class="sidebar-title">ASCII Converter</h2>
+            <ul class="sidebar-nav">
+                <li><a href="/" class="sidebar-link">Home</a></li>
+                <li><a href="/image-to-ascii/" class="sidebar-link">Image to ASCII</a></li>
+                <li><a href="/text-to-ascii/" class="sidebar-link active">Text to ASCII</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <h1>Convert Text to ASCII</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <textarea name="text_input" rows="5" placeholder="Enter text here..."></textarea>
+                    <button type="submit">Convert</button>
+                </form>
+
+                {% if ascii_output %}
+                    <div class="output-container">
+                        <h2>ASCII Output:</h2>
+                        <pre>{{ ascii_output }}</pre>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

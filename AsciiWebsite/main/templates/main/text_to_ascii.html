@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Text to ASCII - ASCII Converter{% endblock %}
+
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/trail.css' %}">
+</head>
+<body>
+    <h1 class="page-title" >Convert Text to ASCII Art</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-container">
+            <!-- Left side (text input) -->
+            <div class="left-side">
+                <textarea class="left-side" name="text" rows="5" placeholder="Enter text here...">{{ request.POST.text }}</textarea>
+            </div>
+
+            <!-- Right side (other form fields and output) -->
+            <div class="right-side">
+                <!-- Font Selection -->
+                <select name="font">
+                    {% for font in fonts %}
+                        <option value="{{ font }}" {% if font == request.POST.font %}selected{% endif %}>{{ font }}</option>
+                    {% endfor %}
+                </select><br>
+
+                <!-- Width Input -->
+                <input type="number" name="width" value="80" placeholder="Enter width" /><br>
+                
+                <!-- Submit Button -->
+                <button class="submit-btn" type="submit">Convert</button>
+            </div>
+        </div>
+    </form>
+
+    {% if ascii_art %}
+        <div class="output-container">
+            <h2 class="output-title">ASCII Output:</h2>
+            <pre class="ascii-output" id="ascii-output">{{ ascii_art|safe }}</pre>
+            <button class="copy-btn" id="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("Copy script loaded");  // Debugging line
+
+        document.getElementById("copy-button")?.addEventListener("click", function () {
+            var asciiTextElement = document.getElementById("ascii-output");
+
+            if (!asciiTextElement) {
+                alert("No ASCII output found!");
+                return;
+            }
+
+            var asciiText = asciiTextElement.textContent; // Use textContent instead of innerText
+
+            navigator.clipboard.writeText(asciiText)
+                .then(() => {
+                    alert("Copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy text:", err);
+                    alert("Failed to copy text. Try manually selecting and copying.");
+                });
+        });
+    });
+</script>
+</body>
+{% endblock %}

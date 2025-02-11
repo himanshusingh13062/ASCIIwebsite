@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - ASCII Converter{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the ASCII Converter!</h1>
+    <p>Select an option from the sidebar.</p>
+
+<body>
+    {% load static %}
+
+    <img src="{% static 'images/giphy.gif' %}" alt="Loading GIF" class="homepage-gif">
+
+
+</body>
+{% endblock %}

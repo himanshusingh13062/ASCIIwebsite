@@ -1,0 +1,4 @@
+username: Himanshu_Singh
+pass: Himanshu_Singh
+
+django admin

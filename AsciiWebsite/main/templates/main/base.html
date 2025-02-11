@@ -1,0 +1,34 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ASCII Converter{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'trail.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> 
+</head>
+<body>
+    <div class="main-container">
+        <!-- Sidebar Section -->
+        <div class="sidebar">
+            <h2 class="sidebar-title">ASCII Converter</h2>
+            <ul class="sidebar-nav">
+                <li><a href="/" class="sidebar-link {% if request.path == '/' %}active{% endif %}">Home</a></li>
+                <li><a href="/image-to-ascii/" class="sidebar-link {% if request.path == '/image-to-ascii/' %}active{% endif %}">Image to ASCII</a></li>
+                <li><a href="/text-to-ascii/" class="sidebar-link {% if request.path == '/text-to-ascii/' %}active{% endif %}">Text to ASCII</a></li>
+            </ul>
+        </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <div class="container">
+                {% block content %}
+                <!-- Content will be injected here -->
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
